@@ -109,6 +109,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
+}
+
+
 STATIC_URL = '/static/'
 
 DEBUG_TOOLBAR_PANELS = [

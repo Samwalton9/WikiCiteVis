@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import filters, viewsets
 
 from citations.models import Citation
 from citations.serializers import CitationSerializer
@@ -8,3 +8,7 @@ class CitationViewSet(viewsets.ModelViewSet):
     model = Citation
     queryset = Citation.objects.all()
     serializer_class = CitationSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = (
+        'id',
+    )
