@@ -42,7 +42,7 @@ config.sources.files = {
   js: `${config.sources.directories.js}/**/*.js`
 };
 
-gulp.task('generateAllStyles', ['sass:lint'], () => {
+gulp.task('css', ['sass:lint'], () => {
   const options = environment === 'production' ? { outputStyle: 'compressed' } : null;
   return gulp.src([`${config.sources.directories.scss}/build.scss`])
              .pipe(sourcemaps.init())
@@ -97,5 +97,5 @@ gulp.task('js:lint', () => {
              .pipe(eslint.failAfterError());
 });
 
-gulp.task('build', ['generateAllStyles', 'js']);
+gulp.task('build', ['css', 'js']);
 gulp.task('default', ['build']);
