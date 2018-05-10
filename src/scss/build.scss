@@ -1,0 +1,7 @@
+@import "incTest";
+
+div {
+  &.div {
+    color: red;
+  }
+}
