@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+            /bin/bash -c "
+                until echo > /dev/tcp/postgres/5432; do sleep 1; done
+                python manage.py migrate
+                python manage.py runserver 0.0.0.0:8000
+            "
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:9.6.8-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=rootpassword
+      - POSTGRES_DB=default
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+volumes:
+  postgres:
