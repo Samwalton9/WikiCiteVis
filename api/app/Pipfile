@@ -10,14 +10,17 @@ name = "pypi"
 django = "~=2.0.5"
 django-debug-toolbar = "~=1.9.1"
 djangorestframework = "~=3.8.2"
-psycopg2-binary = "*"
+"psycopg2-binary" = "*"
 django-filter = "~=1.1.0"
 requests = "~=2.18.4"
+pandas = "*"
+
 
 [dev-packages]
 
 pytest = "~=3.5.1"
 pytest-django = "~=3.2.1"
+
 
 [requires]
 
