@@ -9,6 +9,7 @@ urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('citations.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
