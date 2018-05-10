@@ -1,7 +1,3 @@
-@import "incTest";
+@import "normalize";
 
-div {
-  &.div {
-    color: red;
-  }
-}
+@import "base";
