@@ -1,0 +1,61 @@
+{
+  "name": "wikicitevis",
+  "version": "0.0.1",
+  "description": "Search wiki citation data and visualise the results",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samwalton9/WikiCiteVis.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Samwalton9/WikiCiteVis/issues"
+  },
+  "homepage": "https://github.com/Samwalton9/WikiCiteVis#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browser-sync": "^2.24.4",
+    "browserify": "^16.2.2",
+    "chai": "^4.1.2",
+    "del": "^3.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "event-stream": "^3.3.4",
+    "fsevents": "^1.2.3",
+    "glob": "^7.1.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-flatten": "^0.4.0",
+    "gulp-mocha-phantomjs": "^0.12.2",
+    "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sass-glob": "^1.0.9",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-stylelint": "^7.0.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^5.0.0",
+    "minimist": "^1.2.0",
+    "mocha": "^5.1.1",
+    "postcss-reporter": "^5.0.0",
+    "postcss-scss": "^1.0.5",
+    "sinon": "^5.0.7",
+    "stylelint": "^9.2.0",
+    "stylelint-order": "^0.8.1",
+    "uglify-js": "^3.3.24",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
