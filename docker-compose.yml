@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  web:
+
+  api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: api
     command: >
             /bin/bash -c "
                 until echo > /dev/tcp/postgres/5432; do sleep 1; done
@@ -15,6 +15,17 @@ services:
       - '8000:8000'
     depends_on:
       - postgres
+
+  client:
+    build:
+      context: client
+    volumes:
+        - ./client:/srv/app
+        - /srv/app/build
+        - /srv/app/node_modules
+    ports:
+      - '8080:3000'
+      - '8081:3001'
 
   postgres:
     image: postgres:9.6.8-alpine
