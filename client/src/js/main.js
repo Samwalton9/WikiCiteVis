@@ -24,7 +24,7 @@
           resolve(xhr.responseText);
         });
         xhr.addEventListener('error', reject);
-        xhr.open('GET', url);
+        xhr.open('GET', query);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         xhr.send();
