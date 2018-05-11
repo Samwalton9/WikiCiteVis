@@ -26,7 +26,7 @@ class Citation(models.Model):
     rev_id = models.IntegerField()
     timestamp = models.DateTimeField(null=False)
     type = models.CharField(max_length=25, choices=CITATION_TYPES, default=DOI)
-    id = models.CharField(max_length=250)
+    id = models.CharField(db_index=True, max_length=250)
 
     def __str__(self):
         return f'{self.identifier} / {self.type}: {self.id}'
