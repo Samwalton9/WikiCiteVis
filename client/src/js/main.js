@@ -16,10 +16,33 @@
     return `${baseUri}?search=${search}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}`;
   }
 
+  function getData(query) {
+    return new Promise(
+      function resolver(resolve, reject) {
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', () => {
+          resolve(xhr.responseText);
+        });
+        xhr.addEventListener('error', reject);
+        xhr.open('GET', url);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        xhr.send();
+      }
+    );
+  }
+
+  function displayData(data) {
+    console.log('data', data);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
+    getData(composeQuery(e.target))
+      .then(displayData);
     console.log('query:' ,composeQuery(e.target));
+
   }
 
   $searchForm.addEventListener('submit', handleSubmit);
