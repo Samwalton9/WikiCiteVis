@@ -22,7 +22,7 @@ services:
   api-nginx:
     image: nginx:1.13.12-alpine
     ports:
-      - '8000:80'
+      - '${PUBLIC_API_PORT}:80'
     volumes:
       - ./api/.docker/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
@@ -37,9 +37,15 @@ services:
         - /srv/app/node_modules
     environment:
       - PUBLIC_API_URI=${PUBLIC_BASE_AUTHORITY}:8000
+
+  client-nginx:
+    image: nginx:1.13.12-alpine
     ports:
-      - '8080:3000'
-      - '8081:3001'
+      - '${PUBLIC_CLIENT_PORT}:80'
+    volumes:
+      - ./client/.docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - client
 
   postgres:
     image: postgres:9.6.8-alpine
@@ -47,8 +53,6 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=rootpassword
       - POSTGRES_DB=default
-    ports:
-      - '5432:5432'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
 
