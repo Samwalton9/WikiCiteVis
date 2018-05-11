@@ -21,6 +21,15 @@ ALLOWED_HOSTS = CONF.get('django', 'allowed_hosts').split(',')
 
 INTERNAL_IPS = '127.0.0.1'
 
+CORS_ORIGIN_ALLOW_ALL = False
+
+public_client_uri = os.environ.get('PUBLIC_CLIENT_URI')
+
+if public_client_uri:
+    CORS_ORIGIN_WHITELIST = (
+        f'{public_client_uri}',
+    )
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'django_filters',
     'debug_toolbar',
     'rest_framework',
