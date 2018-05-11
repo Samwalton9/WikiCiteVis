@@ -15,6 +15,7 @@ services:
             "
     volumes:
       - ./api/app:/srv/app
+      - /srv/app/static
     ports:
       - '8000:8000'
     depends_on:
