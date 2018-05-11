@@ -4,7 +4,17 @@
   <meta charset="UTF-8">
   <title>WikiCiteVis: Search UI prototype</title>
   <link rel="stylesheet" href="css/all.css">
+  <style> /* set the CSS */
+
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+  </style>
 </head>
+
+
 <body>
 
   <main>
@@ -177,9 +187,188 @@
 
     </section>
 
+    <section class="visualisation">
+    </section>
 
   </main>
 
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script>
+
+  // set the dimensions and margins of the graph
+  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+      width = 600 - margin.left - margin.right,
+      height = 200 - margin.top - margin.bottom;
+
+  // parse the date / time
+  var parseTime = d3.timeParse("%Y");
+
+  // set the ranges
+  var x = d3.scaleTime().range([0, width]);
+  var y = d3.scaleLinear().range([height, 0]);
+
+  console.log('y axis', y);
+
+  // define the line
+  var valueline = d3.line()
+      .x(function(d) { return x(d.Date); })
+      .y(function(d) { return y(d.Search); });
+  // define the line
+  var valueline2 = d3.line()
+      .x(function(d) { return x(d.Date); })
+      .y(function(d) { return y(d.All); });
+
+
+
+  // append the svg obgect to the body of the page
+  // appends a 'group' element to 'svg'
+  // moves the 'group' element to the top left margin
+  var svg = d3.select(".visualisation").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+  function draw(data, results) {
+
+    var data = data[results];
+
+    // format the data
+    data.forEach(function(d) {
+        d.Date = parseTime(d.Date);
+        d.Search = +d.Search;
+        d.All = +d.All;
+    });
+
+    // sort years ascending
+    data.sort(function(a, b){
+      return a["Date"]-b["Date"];
+  	})
+
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.Date; }));
+    y.domain([0, d3.max(data, function(d) {
+  	  return Math.max(d.Search, d.All); })]);
+
+    // Add the valueline path.
+    svg.append("path")
+        .data([data])
+        .attr("class", "line2")
+        .attr("d", valueline)
+        .attr("stroke", "red");
+    // Add the valueline path.
+    svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .attr("d", valueline2);
+    // Add the X Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // Add the Y Axis
+    svg.append("g")
+        .call(d3.axisLeft(y));
+    }
+  // Get the data
+
+    data = {
+       "Results": [
+          {
+             "Date": 1999,
+             "Search": "15",
+             "All": "2000"
+          },
+          {
+             "Date": 2008,
+             "Search": "42",
+             "All": "30000"
+          },
+          {
+             "Date": 2007,
+             "Search": "29",
+             "All": "25000"
+          },
+          {
+             "Date": 2009,
+             "Search": "346",
+             "All": "32000"
+          },
+          {
+             "Date": 2006,
+             "Search": "44",
+             "All": "21000"
+          },
+          {
+             "Date": 2010,
+             "Search": "424",
+             "All": "37000"
+          },
+          {
+             "Date": 2005,
+             "Search": "28",
+             "All": "20000"
+          },
+          {
+             "Date": 2011,
+             "Search": "413",
+             "All": "40000"
+          },
+          {
+             "Date": 2004,
+             "Search": "34",
+             "All": "15000"
+          },
+          {
+             "Date": 2012,
+             "Search": "313",
+             "All": "42000"
+          },
+          {
+             "Date": 2003,
+             "Search": "21",
+             "All": "10020"
+          },
+          {
+             "Date": 2013,
+             "Search": "513",
+             "All": "50000"
+          },
+          {
+             "Date": 2002,
+             "Search": "18",
+             "All": "7000"
+          },
+          {
+             "Date": 2014,
+             "Search": "471",
+             "All": "55000"
+          },
+          {
+             "Date": 2001,
+             "Search": "17",
+             "All": "6000"
+          },
+          {
+             "Date": 2015,
+             "Search": "119",
+             "All": "62000"
+          },
+          {
+             "Date": 2000,
+             "Search": "25",
+             "All": "4000"
+          }
+       ]
+    }
+
+    draw(data, "Results");
+
+
+  </script>
   <script src="js/main.js"></script>
+
 </body>
 </html>
