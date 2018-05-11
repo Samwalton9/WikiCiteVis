@@ -117,7 +117,7 @@ gulp.task('serve', ['build'], () => {
 
   browserSync.init({
                      browser: ['google chrome'],
-                     startPath: '/search-UI-prototypes.html',
+                     startPath: '/index.html',
                      server: {
                        baseDir: `build/`
                      }
