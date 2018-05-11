@@ -14,6 +14,17 @@ body {
   }
 }
 
+a {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover,
+  &:active {
+    color: $color-primary-dark;
+    text-decoration: underline;
+  }
+}
+
 fieldset {
   border-radius: 5px;
 }
@@ -113,3 +124,26 @@ legend {
   line-height: 1.65;
 }
 
+// Search results
+.search-results {
+  width: 100%;
+}
+
+.search-results__row {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-template-columns: 1fr 5fr 2fr 2fr;
+  width: 100%;
+
+  tbody &:nth-child(even) {
+    background-color: $color-text-ui-code;
+  }
+}
+
+th {
+  font-size: 1.25rem;
+}
+
+td {
+  line-height: 2;
+}
