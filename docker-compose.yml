@@ -14,10 +14,17 @@ services:
             "
     volumes:
       - ./api/app:/srv/app
-    ports:
-      - '8000:8000'
     depends_on:
       - postgres
+
+  api-nginx:
+    image: nginx:1.13.12-alpine
+    ports:
+      - '8000:80'
+    volumes:
+      - ./api/.docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api
 
   client:
     build:
