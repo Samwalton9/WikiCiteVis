@@ -97,5 +97,18 @@ gulp.task('js:lint', () => {
              .pipe(eslint.failAfterError());
 });
 
+gulp.task('serve', ['build'], () => {
+
+  browserSync.init({
+                     browser: ['google chrome'],
+                     server: {
+                       baseDir: `build/`
+                     }
+                   });
+
+  // gulp.watch([config.sources.files.js], ['js:watch']);
+  gulp.watch([config.sources.files.scss], ['css']);
+});
+
 gulp.task('build', ['css', 'js']);
 gulp.task('default', ['build']);
