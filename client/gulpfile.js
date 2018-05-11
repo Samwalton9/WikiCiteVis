@@ -125,7 +125,7 @@ gulp.task('serve', ['build'], () => {
 
   // gulp.watch([config.sources.files.js], ['js:watch']);
   gulp.watch([config.sources.files.scss], ['css']);
-  gulp.watch([config.sources.files.markup], ['markup']);
+  gulp.watch([config.sources.files.markup], ['copyHTML']);
 });
 
 gulp.task('markup:markup', ['copyHTML'], (done) => {

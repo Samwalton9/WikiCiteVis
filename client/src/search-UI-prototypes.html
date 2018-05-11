@@ -16,26 +16,26 @@
 
     <form>
 
-      <input class="text-input" type="search" placeholder="10.nnnn.nn ...">
+      <input class="text-input" type="search" placeholder="10.nnnn.nn formatted search">
       <button class="button" type="submit">Search</button>
 
 
-      <fieldset>
-        <legend>Choose which type of identifier you're searching with </legend>
+      <fieldset class="id-type-wrapper">
+        <legend>Which type of identifier are you searching with? </legend>
 
-        <div><input type="radio" name="idPicker" id="idPickerDOI" checked/><label for="idPickerDOI">DOI</label></div>
-        <div><input type="radio" name="idPicker" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
-        <div><input type="radio" name="idPicker" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
-        <div><input type="radio" name="idPicker" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>
-        <div><input type="radio" name="idPicker" id="idPickerPMCID" /><label for="idPickerPMCID">PubMed Central ID</label></div>
+        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerDOI" checked/><label for="idPickerDOI">DOI</label></div>
+        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
+        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
+        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>
+        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerPMCID" /><label for="idPickerPMCID">PubMed Central ID</label></div>
 
       </fieldset>
 
 
-      <div>
-        <label for="langPicker">Choose a languge (or by default search across all languages)</label>
+      <div class="lang-picker-wrapper">
+        <label for="langPicker">Choose a language (by default searches across all languages)</label>
 
-        <select id="langPicker">
+        <select id="langPicker" class="lang-picker">
           <option value="all" selected>All</option>
           <option value="EN">English</option>
           <option value="DE">German</option>
@@ -46,8 +46,8 @@
       </div>
 
 
-      <fieldset>
-        <legend>Pick a date range.</legend>
+      <fieldset class="date-picker">
+        <legend>Pick a date range</legend>
         <div><label for="datePickerStart">Choose a start date</label>: <input type="date" id="datePickerStart"></div>
         <div><label for="datePickerEnd">Choose an end date</label>: <input type="date" id="datePickerEnd"></div>
       </fieldset>
