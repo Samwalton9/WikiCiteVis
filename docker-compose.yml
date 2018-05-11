@@ -8,12 +8,14 @@ services:
     command: >
             /bin/bash -c "
                 until echo > /dev/tcp/postgres/5432; do sleep 1; done
+                python manage.py collectstatic
                 python manage.py migrate citations
                 python manage.py migrate
-                python manage.py runserver 0.0.0.0:8000
+                gunicorn -b 0.0.0.0:8000 "core.wsgi"
             "
     volumes:
       - ./api/app:/srv/app
+      - /srv/app/static
     ports:
       - '8000:8000'
     depends_on:
