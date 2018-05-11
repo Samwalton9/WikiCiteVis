@@ -15,46 +15,167 @@
       <p>The data only contains identifiers present on March 1, 2018, so any added since then will not be present in this tool. Approximately 98% of identifiers resolve, which may mean you come across identifiers in this tool that aren't valid.</p>
     </header>
 
-    <form>
+    <section class="search-entry">
 
-      <input class="text-input" type="search" placeholder="10.nnnn.nn formatted search">
-      <button class="button" type="submit">Search</button>
+      <form method="get" action="http://localhost:8000/api/v1/citations/">
 
-
-      <fieldset class="id-type-wrapper">
-        <legend>Which type of identifier are you searching with? </legend>
-
-        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerDOI" checked/><label for="idPickerDOI">DOI</label></div>
-        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
-        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
-        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>
-        <div class="multi-choice-item"><input type="radio" name="idPicker" id="idPickerPMCID" /><label for="idPickerPMCID">PubMed Central ID</label></div>
-
-      </fieldset>
+        <input class="text-input" type="search" name="search" placeholder="10.nnnn.nn formatted search">
+        <button class="button" type="submit">Search</button>
 
 
-      <div class="lang-picker-wrapper">
-        <label for="langPicker">Choose a language (by default searches across all languages)</label>
+        <fieldset class="id-type-wrapper">
+          <legend>Which type of identifier are you searching with? </legend>
 
-        <select id="langPicker" class="lang-picker">
-          <option value="all" selected>All</option>
-          <option value="EN">English</option>
-          <option value="DE">German</option>
-          <option value="ES">Spanish</option>
-          <option value="">...</option>
+          <div class="multi-choice-item"><input type="radio" name="type" value="doi" id="idPickerDOI"/><label for="idPickerDOI">DOI</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="isbn" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="arxiv" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="pmid" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="pmcid" id="idPickerPMCID" /><label for="idPickerPMCID">PubMed Central ID</label></div>
+
+        </fieldset>
+
+
+        <div class="lang-picker-wrapper">
+          <label for="langPicker">Choose a language (by default searches across all languages)</label>
+
+        <select name="language"id="langPicker" class="lang-picker">
+          <option name="language"value="" selected>All</option>
+          <option name="language"value="en">English</option>
+          <option name="language"value="de">German</option>
+          <option name="language"value="es">Spanish</option>
+
         </select>
 
-      </div>
+        </div>
 
 
-      <fieldset class="date-picker">
-        <legend>Pick a date range</legend>
-        <div><label for="datePickerStart">Choose a start date</label>: <input type="date" id="datePickerStart"></div>
-        <div><label for="datePickerEnd">Choose an end date</label>: <input type="date" id="datePickerEnd"></div>
-      </fieldset>
+        <fieldset class="date-picker">
+          <legend>Pick a date range</legend>
+          <div><label for="datePickerStart">Choose a start date</label>: <input type="date" id="datePickerStart" disabled></div>
+          <div><label for="datePickerEnd">Choose an end date</label>: <input type="date" id="datePickerEnd" disabled></div>
+        </fieldset>
 
-    </form>
+      </form>
 
+    </section>
+
+
+    <section class="search-results">
+      <h2>Search results</h2>
+      <table>
+        <thead>
+        <tr class="search-results__row">
+          <th class="search-results__item__heading search-results__item__lang"><a href="#sortByLang_ToggleDirection">Language</a></th>
+          <th class="search-results__item__heading search-results__item__title"><a href="#sortByTitle_ToggleDirection">Title</a></th>
+          <th class="search-results__item__heading search-results__item__id"><a href="#sortById_ToggleDirection">ID</a></th>
+          <th class="search-results__item__heading search-results__item__time"><a href="#sortById_ToggleDirection">Time stamp</a></th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+          <tr class="search-results__row">
+            <td class="search-results__item__lang">EN</td>
+            <td class="search-results__item__title"><a href="http://example.com/some-article">Wikipedia article title</a></td>
+            <td class="search-results__item__id">The full id</td>
+            <td class="search-results__item__time">The timestamp</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </section>
 
 
   </main>
