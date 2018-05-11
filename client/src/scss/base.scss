@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "noto sans", sans-serif;
+  font-size: 16px;
+  padding: 8px;
+  color: #363636;
+
+  @media only all and (min-width: #{$breakpoint_2}px) {
+    margin: 0 auto;
+    max-width: 800px;
+  }
+}
+
+fieldset {
+  border-radius: 5px;
+}
+
+fieldset,
+header {
+  margin: 24px 0;
+}
+
+[type="radio"] {
+  margin-right: 12px;
+}
+
+[type="search"] {
+  border-radius: 5px;
+  border: 1px solid $color-primary;
+  line-height: 2;
+  padding: 0 8px;
+  width: 48%;
+
+  @media only all and (min-width: #{$breakpoint_1}px) {
+    width: 50%;
+  }
+}
+
+button {
+  background-color: $color-primary;
+  border-image: none;
+  border-radius: 5px;
+  color: $color-text--reverse;
+  line-height: 2;
+  width: 48%;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+
+}
+
+fieldset {
+  border: 1px solid $color-primary;
+  width: 96%;
+
+  @media only all and (min-width: #{$breakpoint_1}px) {
+    width: 50%;
+  }
+
+}
+
+.lang-picker-wrapper {
+  @media only all and (min-width: #{$breakpoint_1}px) {
+    float: right;
+    clear: right;
+    margin: 24px 8px;
+    width: 42%;
+  }
+
+}
+
+.lang-picker {
+  display: block;
+}
+
+legend {
+  padding: 0 12px;
+  &:before,
+  &:after {
+    content: " ";
+  }
+}
+
+.id-type-wrapper {
+  @media only all and (min-width: #{$breakpoint_1}px) {
+    float: left;
+  }
+
+}
+
+.date-picker {
+  clear: left;
+
+  @media only all and (min-width: #{$breakpoint_1}px) {
+    clear: none;
+    float: left;
+    margin-left: 1%;
+    margin-top: 0;
+    width: 49%;
+  }
+}
+
+[type="date"] {
+  border: none;
+  color: $color-primary;
+}
+
+.multi-choice-item {
+  line-height: 1.65;
+}
+

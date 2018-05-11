@@ -27,20 +27,36 @@ const environment = optionsSetAtInvocation.environment || 'development';
 const config = {
   sources: {
     directories: {
+      markup: 'src',
       scss: 'src/scss',
       js: 'src/js'
     }
   },
   outputPaths: {
+    markup: 'build',
     css: `build/css`,
     js: 'build/js'
   }
 };
 
 config.sources.files = {
+  markup: `${config.sources.directories.markup}/**/*.html`,
   scss: `${config.sources.directories.scss}/**/*.scss`,
   js: `${config.sources.directories.js}/**/*.js`
 };
+
+gulp.task('markup:watch', () => {
+  gulp.watch(config.sources.files.markup, ['copyHTML']);
+});
+
+gulp.task('copyHTML', () => {
+  gulp.src(config.sources.files.markup)
+    .pipe(gulp.dest(config.outputPaths.markup));
+});
+
+gulp.task('css:watch', () => {
+  gulp.watch(config.sources.files.scss, ['css']);
+});
 
 gulp.task('css', ['sass:lint'], () => {
   const options = environment === 'production' ? { outputStyle: 'compressed' } : null;
@@ -61,7 +77,7 @@ gulp.task('sass:lint', ['sass:clean'], () => {
     reporter({ clearMessages: true, throwError: true  })
   ];
 
-  return gulp.src([config.sources.files.scss])
+  return gulp.src([config.sources.files.scss, `!${config.sources.directories.scss}/_normalize.scss`])
              .pipe(postcss(processors, { syntax: syntaxScss }));
 });
 
@@ -101,6 +117,7 @@ gulp.task('serve', ['build'], () => {
 
   browserSync.init({
                      browser: ['google chrome'],
+                     startPath: '/search-UI-prototypes.html',
                      server: {
                        baseDir: `build/`
                      }
@@ -108,7 +125,15 @@ gulp.task('serve', ['build'], () => {
 
   // gulp.watch([config.sources.files.js], ['js:watch']);
   gulp.watch([config.sources.files.scss], ['css']);
+  gulp.watch([config.sources.files.markup], ['copyHTML']);
 });
 
-gulp.task('build', ['css', 'js']);
+gulp.task('markup:markup', ['copyHTML'], (done) => {
+  browserSync.reload();
+  done();
+});
+
+
+gulp.task('build', ['css', 'js', 'copyHTML']);
+gulp.task('watch', ['serve']);
 gulp.task('default', ['build']);
