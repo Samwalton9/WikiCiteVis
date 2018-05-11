@@ -23,11 +23,12 @@ INTERNAL_IPS = '127.0.0.1'
 
 CORS_ORIGIN_ALLOW_ALL = False
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
-    'http://34.245.184.130:8080',
+public_client_uri = os.environ.get('PUBLIC_CLIENT_URI')
 
-)
+if public_client_uri:
+    CORS_ORIGIN_WHITELIST = (
+        f'{public_client_uri}',
+    )
 
 INSTALLED_APPS = [
     'django.contrib.admin',
