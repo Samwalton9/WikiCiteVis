@@ -14,7 +14,7 @@ services:
                 gunicorn -b 0.0.0.0:8000 "core.wsgi"
             "
     environment:
-      - PUBLIC_CLIENT_URI=${PUBLIC_BASE_AUTHORITY}:${PUBLIC_CLIENT_PORT}
+      - PUBLIC_CLIENT_AUTHORITY=${PUBLIC_HOST}:${PUBLIC_CLIENT_PORT}
     volumes:
       - ./api/app:/srv/app
       - /srv/app/static
@@ -38,7 +38,7 @@ services:
         - /srv/app/build
         - /srv/app/node_modules
     environment:
-      - PUBLIC_API_URI=${PUBLIC_BASE_AUTHORITY}:8000
+      - PUBLIC_API_URI=${PUBLIC_SCHEME}://${PUBLIC_HOST}:${PUBLIC_API_PORT}
 
   client-nginx:
     image: nginx:1.13.12-alpine
