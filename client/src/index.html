@@ -17,7 +17,7 @@
 
     <section class="search-entry">
 
-      <form method="get" action="http://localhost:8000/api/v1/citations/">
+      <form id="searchForm" method="get" action="http://localhost:8000/api/v1/citations/">
 
         <input class="text-input" type="search" name="search" placeholder="10.nnnn.nn formatted search">
         <button class="button" type="submit">Search</button>
@@ -38,11 +38,11 @@
         <div class="lang-picker-wrapper">
           <label for="langPicker">Choose a language (by default searches across all languages)</label>
 
-        <select name="language"id="langPicker" class="lang-picker">
-          <option name="language"value="" selected>All</option>
-          <option name="language"value="en">English</option>
-          <option name="language"value="de">German</option>
-          <option name="language"value="es">Spanish</option>
+        <select name="language" id="langPicker" class="lang-picker">
+          <option name="language" value="" selected>All</option>
+          <option name="language" value="en">English</option>
+          <option name="language" value="de">German</option>
+          <option name="language" value="es">Spanish</option>
 
         </select>
 
@@ -51,8 +51,8 @@
 
         <fieldset class="date-picker">
           <legend>Pick a date range</legend>
-          <div><label for="datePickerStart">Choose a start date</label>: <input type="date" id="datePickerStart" disabled></div>
-          <div><label for="datePickerEnd">Choose an end date</label>: <input type="date" id="datePickerEnd" disabled></div>
+          <div><label for="datePickerStart">Choose a start date</label>: <input type="date" id="datePickerStart"  name="startDate"></div>
+          <div><label for="datePickerEnd">Choose an end date</label>: <input type="date" name="endDate" id="datePickerEnd"></div>
         </fieldset>
 
       </form>
@@ -180,6 +180,6 @@
 
   </main>
 
-
+  <script src="js/main.js"></script>
 </body>
 </html>
