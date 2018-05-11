@@ -105,27 +105,6 @@
     );
   }
 
-  /*
-  * {
-    "count": 1,
-    "next": null,
-    "previous": null,
-    "results": [
-        {
-            "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-            "language": "sw",
-            "page_id": 15871,
-            "page_title": "Malaria",
-            "rev_id": 318169,
-            "timestamp": "2009-11-19T12:35:47Z",
-            "type": "doi",
-            "id": "10.1038/nsmb947"
-        }
-    ]
-}
-  *
-  * */
-
   function displayData(data) {
     constructResultsHeading(data.count);
     console.log('data', data);
@@ -149,7 +128,108 @@
     }
   }
 
+  function constructTableHead() {
+    const $thead = buildElement('thead');
+    const $headRow = buildElement('tr', [], '', $thead);
+
+    const headRowCols = [
+      {
+        text: 'Language',
+        href: 'sortByLang_ToggleDirection'
+      },
+      {
+        text: 'Title',
+        href: 'sortByTitle_ToggleDirection'
+      },
+      {
+        text: 'ID',
+        href: 'sortById_ToggleDirection'
+      },
+      {
+        text: 'Time stamp',
+        href: 'sortByTimeStamp_ToggleDirection'
+      },
+    ];
+
+    headRowCols.forEach((colData) => {
+      $headRow.appendChild(constructHeadColHeading(colData.text, colData.href));
+    });
+
+    return $thead;
+  }
+
+  function constructHeadColHeading(text, href) {
+    const $th = buildElement('th', ['search-results__item__heading', 'search-results__item__lang']);
+    const $a = buildElement('a', [], text, $th);
+    $a.href = href;
+    return $th;
+  }
+
+  function constructTableBody(resultsList) {
+    const $tbody = buildElement('tbody');
+    resultsList.forEach((result) => {
+      $tbody.appendChild(constructTableBodyRow(result));
+    });
+
+    return $tbody;
+  }
+
+  function constructTableBodyRow(data) {
+    const $tr = buildElement('tr', ['search-results__row']);
+    const $tdLang = buildElement('td', ['search-results__item__lang'], data.language);
+
+    const $tdTitle = buildElement('td', ['search-results__item__title']);
+    const processedTitle = data.page_title.replace(/ /g, '_');
+    const $tdTitleLink = buildElement('a', ['search-results__item__lang'], data.page_title, $tdTitle);
+    $tdTitleLink.href = `https://${data.language}.wikipedia.org/wiki/${processedTitle}`;
+
+    const $tdId = buildElement('td', ['search-results__item__id'], data.page_id);
+    const $timeStamp = buildElement('td', ['search-results__item__time'], data.timestamp);
+
+    $tr.appendChild($tdLang);
+    $tr.appendChild($tdTitle);
+    $tr.appendChild($tdId);
+    $tr.appendChild($timeStamp);
+
+    return $tr;
+  }
+
+  function constructTableSkeleton(list) {
+    const $table = buildElement('table');
+    const $thead = constructTableHead();
+    $table.appendChild($thead);
+    return $table;
+  }
+
+  function constructResultsTable(list) {
+    const $table = constructTableSkeleton();
+    const $tbody = constructTableBody(list);
+    $table.appendChild($tbody);
+
+    document.querySelector('.search-results').appendChild($table);
+  }
+
   $searchForm.addEventListener('submit', handleSubmit);
+
+  const mockData =   {
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
+        "language": "sw",
+        "page_id": 15871,
+        "page_title": "Malaria",
+        "rev_id": 318169,
+        "timestamp": "2009-11-19T12:35:47Z",
+        "type": "doi",
+        "id": "10.1038/nsmb947"
+      }
+    ]
+  };
+
+  constructResultsTable(mockData.results);
 
 }(window));
 
