@@ -4,6 +4,6 @@ WikiCiteVis is a tool for searching and visualising Wikipedia's citations, as co
 
 It was started at the [eLife Innovation Sprint 2018](https://elifesciences.org/events/c40798c3/elife-innovation-sprint-2018).
 
-##Getting started
+## Getting started
 
 TBD
