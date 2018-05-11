@@ -35,6 +35,8 @@ services:
         - ./client:/srv/app
         - /srv/app/build
         - /srv/app/node_modules
+    environment:
+      - PUBLIC_API_URI=${PUBLIC_BASE_AUTHORITY}:8000
     ports:
       - '8080:3000'
       - '8081:3001'
