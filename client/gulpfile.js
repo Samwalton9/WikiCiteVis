@@ -12,6 +12,7 @@ const gulp = require('gulp');
 const minimist = require('minimist');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
+const replace = require('gulp-string-replace');
 const reporter = require('postcss-reporter');
 const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
@@ -51,6 +52,7 @@ gulp.task('markup:watch', () => {
 
 gulp.task('copyHTML', () => {
   gulp.src(config.sources.files.markup)
+    .pipe(replace('PUBLIC_API_URI', process.env.PUBLIC_API_URI))
     .pipe(gulp.dest(config.outputPaths.markup));
 });
 

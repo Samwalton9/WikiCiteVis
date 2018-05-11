@@ -21,6 +21,15 @@ ALLOWED_HOSTS = CONF.get('django', 'allowed_hosts').split(',')
 
 INTERNAL_IPS = '127.0.0.1'
 
+public_client_authority = os.environ.get('PUBLIC_CLIENT_AUTHORITY')
+
+if public_client_authority:
+    CORS_ORIGIN_WHITELIST = (
+        f'{public_client_authority}',
+    )
+else:
+    CORS_ORIGIN_ALLOW_ALL = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'django_filters',
     'debug_toolbar',
     'rest_framework',
@@ -35,10 +45,12 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -116,6 +128,8 @@ REST_FRAMEWORK = {
 
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
