@@ -144,7 +144,7 @@
     const $heading = document.getElementById('searchResultsHeading');
     let $count = $heading.querySelector('.result-count');
     if (!$count) {
-      $count = buildElement('span', ['result-count'], ` (${resultCount} results)`);
+      $count = buildElement('span', ['result-count'], ` (${resultCount} results)`, $heading);
       $heading.appendChild($count);
     }
   }
