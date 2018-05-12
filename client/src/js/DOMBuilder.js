@@ -80,28 +80,9 @@ module.exports = class DOMBuilder {
     return $th;
   }
 
-  static constructTableHead() {
+  static constructTableHead(headRowCols) {
     const $thead = DOMBuilder.buildElement('thead');
     const $headRow = DOMBuilder.buildElement('tr', ['search-results__row'], '', $thead);
-
-    const headRowCols = [
-      {
-        text: 'Language',
-        href: 'sortByLang_ToggleDirection'
-      },
-      {
-        text: 'Title',
-        href: 'sortByTitle_ToggleDirection'
-      },
-      {
-        text: 'ID',
-        href: 'sortById_ToggleDirection'
-      },
-      {
-        text: 'Time stamp',
-        href: 'sortByTimeStamp_ToggleDirection'
-      },
-    ];
 
     headRowCols.forEach((colData) => {
       $headRow.appendChild(DOMBuilder.constructHeadColHeading(colData.text, colData.href));
@@ -110,9 +91,9 @@ module.exports = class DOMBuilder {
     return $thead;
   }
 
-  static constructTableSkeleton() {
+  static constructTableSkeleton(headRowCols) {
     const $table = DOMBuilder.buildElement('table');
-    const $thead = DOMBuilder.constructTableHead();
+    const $thead = DOMBuilder.constructTableHead(headRowCols);
     $table.appendChild($thead);
     return $table;
   }
@@ -146,8 +127,8 @@ module.exports = class DOMBuilder {
     return $tbody;
   }
 
-  static constructResultsTable(list) {
-    const $table = DOMBuilder.constructTableSkeleton();
+  static constructResultsTable(list, headRowCols) {
+    const $table = DOMBuilder.constructTableSkeleton(headRowCols);
     const $tbody = DOMBuilder.constructTableBody(list);
     $table.appendChild($tbody);
 

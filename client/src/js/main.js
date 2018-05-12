@@ -52,6 +52,27 @@ const DOMBuilder = require('./DOMBuilder');
 
   $searchForm.addEventListener('submit', handleSubmit);
 
+  const config = {
+    headRowCols: [
+      {
+        text: 'Language',
+        href: 'sortByLang_ToggleDirection'
+      },
+      {
+        text: 'Title',
+        href: 'sortByTitle_ToggleDirection'
+      },
+      {
+        text: 'ID',
+        href: 'sortById_ToggleDirection'
+      },
+      {
+        text: 'Time stamp',
+        href: 'sortByTimeStamp_ToggleDirection'
+      }
+    ]
+  };
+
   const mockData =   {
     "count": 1,
     "next": null,
@@ -110,7 +131,7 @@ const DOMBuilder = require('./DOMBuilder');
     ]
   };
 
-  DOMBuilder.constructResultsTable(mockData.results);
+  DOMBuilder.constructResultsTable(mockData.results, config.headRowCols);
 
 }(window));
 
