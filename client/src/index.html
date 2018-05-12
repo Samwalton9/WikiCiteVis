@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WikiCiteVis</title>
+  <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+
+  <main>
+
+    <header class=page-header">
+      <h1 class=page-header__heading">WikiCiteVis</h1>
+      <p class=page-header__stand_first">WikiCiteVis is a tool to search and visualise Wikipedia's citation data, using the <a href="https://figshare.com/articles/Wikipedia_Scholarly_Article_Citations/1299540">Citations with identifiers in Wikipedia</a> dataset.</p>
+      <p>The data only contains identifiers present on March 1, 2018, so any added since then will not be present in this tool. Approximately 98% of identifiers resolve, which may mean you come across identifiers in this tool that aren't valid.</p>
+    </header>
+
+    <section class="search-entry">
+
+      <form id="searchForm" method="get" action="PUBLIC_API_URI/api/v1/citations/">
+
+        <input class="text-input" type="search" name="search" placeholder="10.nnnn.nn formatted search">
+        <button class="button" type="submit">Search</button>
+
+
+        <fieldset class="id-type-wrapper">
+          <legend>Which type of identifier are you searching with? </legend>
+
+          <div class="multi-choice-item"><input type="radio" name="type" value="doi" id="idPickerDOI"/><label for="idPickerDOI">DOI</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="isbn" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="arxiv" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="pmid" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="pmcid" id="idPickerPMCID" /><label for="idPickerPMCID">PubMed Central ID</label></div>
+
+        </fieldset>
+
+
+        <div class="lang-picker-wrapper">
+          <label for="langPicker">Choose a language (by default searches across all languages)</label>
+
+        <select name="language" id="langPicker" class="lang-picker">
+          <option name="language" value="" selected>All</option>
+          <option name="language" value="en">English</option>
+          <option name="language" value="de">German</option>
+          <option name="language" value="es">Spanish</option>
+
+        </select>
+
+        </div>
+
+
+        <fieldset class="date-picker">
+          <legend>Pick a date range</legend>
+          <div><label for="datePickerStart">Choose a start date</label>: <input type="date" id="datePickerStart"  name="startDate"></div>
+          <div><label for="datePickerEnd">Choose an end date</label>: <input type="date" name="endDate" id="datePickerEnd"></div>
+        </fieldset>
+
+      </form>
+
+    </section>
+
+
+    <section class="search-results">
+      <h2 class="heading" id="searchResultsHeading">Search results</h2>
+
+    </section>
+
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

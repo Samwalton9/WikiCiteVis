@@ -89,7 +89,7 @@ gulp.task('sass:clean', () => {
 
 gulp.task('js', ['js:transpile']);
 
-gulp.task('js:transpile', ['js:clean', 'js:lint'], () => {
+gulp.task('js:transpile', ['js:clean'/*, 'js:lint'*/], () => {
   return browserify(`./${config.sources.directories.js}/main.js`, {
     debug: true /* !(environment === 'production') */
   })
@@ -119,13 +119,13 @@ gulp.task('serve', ['build'], () => {
 
   browserSync.init({
                      browser: ['google chrome'],
-                     startPath: '/search-UI-prototypes.html',
+                     startPath: '/index.html',
                      server: {
                        baseDir: `build/`
                      }
                    });
 
-  // gulp.watch([config.sources.files.js], ['js:watch']);
+  gulp.watch([config.sources.files.js], ['js']);
   gulp.watch([config.sources.files.scss], ['css']);
   gulp.watch([config.sources.files.markup], ['copyHTML']);
 });

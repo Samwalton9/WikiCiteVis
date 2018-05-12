@@ -132,7 +132,7 @@ legend {
 .search-results__row {
   display: grid;
   grid-column-gap: 8px;
-  grid-template-columns: 1fr 5fr 2fr 2fr;
+  grid-template-columns: 1fr 5fr 2fr 3fr;
   width: 100%;
 
   tbody &:nth-child(even) {
