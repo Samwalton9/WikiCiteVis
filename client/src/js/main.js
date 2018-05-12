@@ -4,7 +4,6 @@ const DOMBuilder = require('./DOMBuilder');
 
   'use strict';
 
-
   const $searchForm = document.getElementById('searchForm');
 
   function composeQuery($form) {
@@ -37,7 +36,7 @@ const DOMBuilder = require('./DOMBuilder');
   }
 
   function displayData(data) {
-    DOMBuilder.constructResultsHeading(data.count);
+    console.log('Placeholder fn until search returning results');
     console.log('data', data);
   }
 
@@ -47,10 +46,7 @@ const DOMBuilder = require('./DOMBuilder');
     getData(composeQuery(e.target))
       .then(displayData);
     console.log('query:' ,composeQuery(e.target));
-
   }
-
-  $searchForm.addEventListener('submit', handleSubmit);
 
   const config = {
     headRowCols: [
@@ -74,7 +70,7 @@ const DOMBuilder = require('./DOMBuilder');
   };
 
   const mockData =   {
-    "count": 1,
+    "count": 5,
     "next": null,
     "previous": null,
     "results": [
@@ -131,6 +127,10 @@ const DOMBuilder = require('./DOMBuilder');
     ]
   };
 
+  $searchForm.addEventListener('submit', handleSubmit);
+
+  // TODO: Move next 2 lines to the displayData function (the promise resolution callback)
+  DOMBuilder.constructResultsHeading(mockData.count);
   DOMBuilder.constructResultsTable(mockData.results, config.headRowCols);
 
 }(window));

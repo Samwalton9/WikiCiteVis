@@ -5,8 +5,6 @@ module.exports = class DOMBuilder {
   /**
    * Builds and returns specified HTML element, optionally adding it to the DOM.
    *
-   *
-   *
    * @param {string} elName Name of the HTML element to build
    * @param {Array<string>} [cssClasses] CSS class name(s) to set on the element
    * @param {string} [textContent] Textual content of the element
@@ -136,12 +134,15 @@ module.exports = class DOMBuilder {
   }
 
   static constructResultsHeading(resultCount) {
+    const countDisplay = ` (${resultCount} results)`;
     const $heading = document.getElementById('searchResultsHeading');
     let $count = $heading.querySelector('.result-count');
     if (!$count) {
-      $count = DOMBuilder.buildElement('span', ['result-count'], ` (${resultCount} results)`, $heading);
-      $heading.appendChild($count);
+      $count = DOMBuilder.buildElement('span', ['result-count'], countDisplay, $heading);
+    } else {
+      $count.innerHTML = countDisplay;
     }
+    $heading.appendChild($count);
   }
 
 }
