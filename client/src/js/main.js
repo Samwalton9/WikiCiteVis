@@ -48,6 +48,28 @@ const DOMBuilder = require('./DOMBuilder');
     console.log('query:' ,composeQuery(e.target));
   }
 
+  function deriveSourceUri(id, type) {
+    let prefix;
+    switch (type.toLowerCase()) {
+    case 'doi':
+      prefix = 'http://doi.org/';
+      break;
+    case 'isbn':
+      prefix = 'https://en.wikipedia.org/wiki/Special:BookSources/';
+      break;
+    case 'arxiv':
+      prefix = 'https://arxiv.org/abs/';
+      break;
+    case 'pmid':
+      prefix = 'https://www.ncbi.nlm.nih.gov/pubmed/';
+      break;
+    case 'pmcid':
+      prefix = 'https://www.ncbi.nlm.nih.gov/pmc/articles/';
+    }
+
+    return `${prefix}${id}`
+  }
+
   const config = {
     headRowCols: [
       {
@@ -131,10 +153,6 @@ const DOMBuilder = require('./DOMBuilder');
 
   // TODO: Move next 2 lines to the displayData function (the promise resolution callback)
   DOMBuilder.constructResultsHeading(mockData.count);
-  DOMBuilder.constructResultsTable(mockData.results, config.headRowCols);
+  DOMBuilder.constructResultsTable(mockData.results, config.headRowCols, deriveSourceUri);
 
 }(window));
-
-
-
-

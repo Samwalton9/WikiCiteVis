@@ -96,7 +96,7 @@ module.exports = class DOMBuilder {
     return $table;
   }
 
-  static constructTableBodyRow(data) {
+  static constructTableBodyRow(data, deriveSourceUri) {
     const $tr = DOMBuilder.buildElement('tr', ['search-results__row']);
     const $tdLang = DOMBuilder.buildElement('td', ['search-results__item__lang'], data.language.toUpperCase());
 
@@ -105,7 +105,10 @@ module.exports = class DOMBuilder {
     const $tdTitleLink = DOMBuilder.buildElement('a', ['search-results__item__lang'], data.page_title, $tdTitle);
     $tdTitleLink.href = `https://${data.language}.wikipedia.org/wiki/${processedTitle}`;
 
-    const $tdId = DOMBuilder.buildElement('td', ['search-results__item__id'], data.page_id);
+    const $tdId = DOMBuilder.buildElement('td', ['search-results__item__id']);
+    const sourceUri = deriveSourceUri.call(null, data.page_id, data.type);
+    const $sourceLink = DOMBuilder.buildElement('a', [], data.page_id, $tdId);
+    $sourceLink.href = sourceUri;
     const $timeStamp = DOMBuilder.buildElement('td', ['search-results__item__time'], data.timestamp);
 
     $tr.appendChild($tdLang);
@@ -116,18 +119,18 @@ module.exports = class DOMBuilder {
     return $tr;
   }
 
-  static constructTableBody(resultsList) {
+  static constructTableBody(resultsList, deriveSourceUri) {
     const $tbody = DOMBuilder.buildElement('tbody');
     resultsList.forEach((result) => {
-      $tbody.appendChild(DOMBuilder.constructTableBodyRow(result));
+      $tbody.appendChild(DOMBuilder.constructTableBodyRow(result, deriveSourceUri));
     });
 
     return $tbody;
   }
 
-  static constructResultsTable(list, headRowCols) {
+  static constructResultsTable(list, headRowCols, deriveSourceUri) {
     const $table = DOMBuilder.constructTableSkeleton(headRowCols);
-    const $tbody = DOMBuilder.constructTableBody(list);
+    const $tbody = DOMBuilder.constructTableBody(list, deriveSourceUri);
     $table.appendChild($tbody);
 
     document.querySelector('.search-results').appendChild($table);
