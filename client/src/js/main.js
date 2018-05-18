@@ -7,6 +7,8 @@ const DOMBuilder = require('./DOMBuilder');
   const $searchForm = document.getElementById('searchForm');
 
   function composeQuery($form) {
+    // return 'http://54.229.175.46:8081/api/v1/citations/?id=10.7554/eLife.09560';
+
     const baseUri = $form.action;
     const search = $form.search.value;
     const type = $form.querySelector('input[name="type"]:checked').value;
@@ -35,9 +37,13 @@ const DOMBuilder = require('./DOMBuilder');
     );
   }
 
-  function displayData(data) {
+  function displayData(dataString) {
     console.log('Placeholder fn until search returning results');
-    console.log('data', data);
+    console.log('data', dataString);
+    const data = JSON.parse(dataString);
+    DOMBuilder.constructResultsHeading(data);
+    DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
+
   }
 
   function handleSubmit(e) {
@@ -150,9 +156,5 @@ const DOMBuilder = require('./DOMBuilder');
   };
 
   $searchForm.addEventListener('submit', handleSubmit);
-
-  // TODO: Move next 2 lines to the displayData function (the promise resolution callback)
-  DOMBuilder.constructResultsHeading(mockData.count);
-  DOMBuilder.constructResultsTable(mockData.results, config.headRowCols, deriveSourceUri);
 
 }(window));
