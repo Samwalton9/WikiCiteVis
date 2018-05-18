@@ -137,15 +137,27 @@ module.exports = class DOMBuilder {
   }
 
   static constructResultsHeading(resultCount) {
-    const countDisplay = ` (${resultCount} results)`;
-    const $heading = document.getElementById('searchResultsHeading');
+    const $container = document.querySelector('.search-results');
+    let $heading = $container.querySelector('.heading');
+    if (!$heading) {
+      $heading = DOMBuilder.buildElement('h2', ['heading'], 'Search results', $container);
+    }
+
     let $count = $heading.querySelector('.result-count');
+    const countDisplay = ` (${resultCount} results)`;
     if (!$count) {
       $count = DOMBuilder.buildElement('span', ['result-count'], countDisplay, $heading);
     } else {
       $count.innerHTML = countDisplay;
     }
-    $heading.appendChild($count);
   }
 
-}
+  static constructLoadingSpinner($parent) {
+    DOMBuilder.buildElement('div', ['loading-spinner'], '', $parent);
+  }
+
+  static removeLoadingSpinner() {
+    document.querySelector('.loading-spinner').parentNode.removeChild(document.querySelector('.loading-spinner'));
+  }
+
+};

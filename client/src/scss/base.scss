@@ -124,6 +124,10 @@ legend {
   line-height: 1.65;
 }
 
+.loading-spinner {
+  @include loading-spinner();
+}
+
 // Search results
 .search-results {
   width: 100%;
@@ -147,3 +151,4 @@ th {
 td {
   line-height: 2;
 }
+

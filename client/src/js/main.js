@@ -41,7 +41,7 @@ const DOMBuilder = require('./DOMBuilder');
     console.log('Placeholder fn until search returning results');
     console.log('data', dataString);
     const data = JSON.parse(dataString);
-    DOMBuilder.constructResultsHeading(data);
+    DOMBuilder.constructResultsHeading(data.count);
     DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
 
   }
@@ -49,8 +49,9 @@ const DOMBuilder = require('./DOMBuilder');
   function handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
+    DOMBuilder.constructLoadingSpinner(document.querySelector('.search-results'));
     getData(composeQuery(e.target))
-      .then(displayData);
+      .then(displayData).then(DOMBuilder.removeLoadingSpinner);
     console.log('query:' ,composeQuery(e.target));
   }
 
