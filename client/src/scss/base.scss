@@ -156,3 +156,12 @@ td {
   line-height: 2;
 }
 
+.pager {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    flex: 0 0 8rem;
+  }
+
+}
