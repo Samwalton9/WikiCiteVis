@@ -162,6 +162,15 @@ td {
 
   button {
     flex: 0 0 8rem;
+
+    &.previous {
+      margin-right: auto;
+    }
+
+    &.next {
+      margin-left: auto;
+    }
+
   }
 
 }
