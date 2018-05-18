@@ -11,6 +11,7 @@ class CitationViewSet(viewsets.ModelViewSet):
     serializer_class = CitationSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filter_fields = (
+        'id',
         'type',
         'language',
     )
