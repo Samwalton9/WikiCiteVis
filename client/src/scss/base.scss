@@ -25,6 +25,10 @@ a {
   }
 }
 
+.pickers {
+  @include clearfix();
+}
+
 fieldset {
   border-radius: 5px;
 }
