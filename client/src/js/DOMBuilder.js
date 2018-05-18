@@ -140,11 +140,11 @@ module.exports = class DOMBuilder {
     const $container = document.querySelector('.search-results');
     let $heading = $container.querySelector('.heading');
     if (!$heading) {
-      $heading = DOMBuilder.buildElement('h2', ['heading'], 'Search results', $container);
+      $heading = DOMBuilder.buildElement('h2', ['heading'], '', $container);
     }
 
     let $count = $heading.querySelector('.result-count');
-    const countDisplay = ` (${resultCount} results)`;
+    const countDisplay = ` ${resultCount} results`;
     if (!$count) {
       $count = DOMBuilder.buildElement('span', ['result-count'], countDisplay, $heading);
     } else {
@@ -158,6 +158,10 @@ module.exports = class DOMBuilder {
 
   static removeLoadingSpinner() {
     document.querySelector('.loading-spinner').parentNode.removeChild(document.querySelector('.loading-spinner'));
+  }
+
+  static clear($element) {
+    $element.innerHTML = '';
   }
 
 };

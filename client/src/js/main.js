@@ -42,14 +42,18 @@ const DOMBuilder = require('./DOMBuilder');
     console.log('data', dataString);
     const data = JSON.parse(dataString);
     DOMBuilder.constructResultsHeading(data.count);
-    DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
+    if (data.count) {
+      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
+    }
 
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    DOMBuilder.constructLoadingSpinner(document.querySelector('.search-results'));
+    const $searchResultsContainer = document.querySelector('.search-results');
+    DOMBuilder.clear($searchResultsContainer);
+    DOMBuilder.constructLoadingSpinner($searchResultsContainer);
     getData(composeQuery(e.target))
       .then(displayData).then(DOMBuilder.removeLoadingSpinner);
     console.log('query:' ,composeQuery(e.target));
