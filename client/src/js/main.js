@@ -102,64 +102,6 @@ const DOMBuilder = require('./DOMBuilder');
     ]
   };
 
-  const mockData =   {
-    "count": 5,
-    "next": null,
-    "previous": null,
-    "results": [
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      }
-    ]
-  };
-
   $searchForm.addEventListener('submit', handleSubmit);
 
 }(window));
