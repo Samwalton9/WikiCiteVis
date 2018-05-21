@@ -38,8 +38,6 @@ const DOMBuilder = require('./DOMBuilder');
   }
 
   function displayData(dataString) {
-    console.log('Placeholder fn until search returning results');
-    console.log('data', dataString);
     const data = JSON.parse(dataString);
 
     if (!data.count) {
@@ -60,7 +58,8 @@ const DOMBuilder = require('./DOMBuilder');
         next: data.next
       },
       getData,
-      displayData
+      displayData,
+      document.querySelector('.search-results')
       );
   }
 

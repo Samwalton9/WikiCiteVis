@@ -166,7 +166,7 @@ module.exports = class DOMBuilder {
     $element.innerHTML = '';
   }
 
-  static constructPager(uris, getData, displayData) {
+  static constructPager(uris, getData, displayData, $searchResultsContainer) {
     const $oldPager = document.querySelector('.pager');
     if ($oldPager) {
       $oldPager.parentNode.removeChild($oldPager);
@@ -179,6 +179,7 @@ module.exports = class DOMBuilder {
       // Temporary hacking the URL to get a local client instance running
       $next.dataset.uri = uris.next.replace('http://api:8000', 'http://54.229.175.46:8081');
       $next.addEventListener('click', (e) => {
+        DOMBuilder.constructLoadingSpinner($searchResultsContainer);
         getData.call(null, e.target.dataset.uri).then(displayData).then(DOMBuilder.removeLoadingSpinner);
       });
       $pager.appendChild($next);
