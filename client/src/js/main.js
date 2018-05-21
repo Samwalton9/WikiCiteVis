@@ -41,11 +41,27 @@ const DOMBuilder = require('./DOMBuilder');
     console.log('Placeholder fn until search returning results');
     console.log('data', dataString);
     const data = JSON.parse(dataString);
-    DOMBuilder.constructResultsHeading(data.count);
-    if (data.count) {
-      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
+
+    if (!data.count) {
+      return;
     }
 
+    // First page
+    if (!data.previous) {
+      DOMBuilder.constructResultsHeading(data.count);
+      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
+    } else {
+      DOMBuilder.appendToTableBody(data.results, deriveSourceUri);
+    }
+
+    DOMBuilder.constructPager(
+      {
+        previous: data.previous,
+        next: data.next
+      },
+      getData,
+      displayData
+      );
   }
 
   function handleSubmit(e) {

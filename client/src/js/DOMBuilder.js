@@ -119,21 +119,20 @@ module.exports = class DOMBuilder {
     return $tr;
   }
 
-  static constructTableBody(resultsList, deriveSourceUri) {
-    const $tbody = DOMBuilder.buildElement('tbody');
-    resultsList.forEach((result) => {
-      $tbody.appendChild(DOMBuilder.constructTableBodyRow(result, deriveSourceUri));
-    });
-
-    return $tbody;
-  }
-
   static constructResultsTable(list, headRowCols, deriveSourceUri) {
     const $table = DOMBuilder.constructTableSkeleton(headRowCols);
-    const $tbody = DOMBuilder.constructTableBody(list, deriveSourceUri);
+    let $tbody = DOMBuilder.buildElement('tbody');
+    DOMBuilder.appendToTableBody(list, deriveSourceUri, $tbody);
     $table.appendChild($tbody);
 
     document.querySelector('.search-results').appendChild($table);
+  }
+
+  static appendToTableBody(list, deriveSourceUri, $tableBody) {
+    let $tbody = $tableBody || document.querySelector('tbody');
+    list.forEach((result) => {
+      $tbody.appendChild(DOMBuilder.constructTableBodyRow(result, deriveSourceUri));
+    });
   }
 
   static constructResultsHeading(resultCount) {
@@ -157,11 +156,35 @@ module.exports = class DOMBuilder {
   }
 
   static removeLoadingSpinner() {
-    document.querySelector('.loading-spinner').parentNode.removeChild(document.querySelector('.loading-spinner'));
+    const $loadingSpinner = document.querySelector('.loading-spinner');
+    if ($loadingSpinner) {
+      $loadingSpinner.parentNode.removeChild(document.querySelector('.loading-spinner'));
+    }
   }
 
   static clear($element) {
     $element.innerHTML = '';
+  }
+
+  static constructPager(uris, getData, displayData) {
+    const $oldPager = document.querySelector('.pager');
+    if ($oldPager) {
+      $oldPager.parentNode.removeChild($oldPager);
+    }
+    const $pager = DOMBuilder.buildElement('div', ['pager']);
+
+    if (uris.next) {
+      const $next = DOMBuilder.buildElement('button', ['next'], 'More');
+      $next.id = 'nextPage';
+      // Temporary hacking the URL to get a local client instance running
+      $next.dataset.uri = uris.next.replace('http://api:8000', 'http://54.229.175.46:8081');
+      $next.addEventListener('click', (e) => {
+        getData.call(null, e.target.dataset.uri).then(displayData).then(DOMBuilder.removeLoadingSpinner);
+      });
+      $pager.appendChild($next);
+    }
+
+    document.querySelector('.search-results').appendChild($pager);
   }
 
 };
