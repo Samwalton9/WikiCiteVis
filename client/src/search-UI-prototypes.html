@@ -24,11 +24,13 @@
         <input class="text-input" type="search" name="search" placeholder="10.nnnn.nn formatted search">
         <button class="button" type="submit">Search</button>
 
+        <div class="multi-choice-item"><input type="checkbox" name="stringency" value="exact match" id="stringency" checked/><label for="stringency">Exact match</label></div>
+
 
         <fieldset class="id-type-wrapper">
           <legend>Which type of identifier are you searching with? </legend>
 
-          <div class="multi-choice-item"><input type="radio" name="type" value="doi" id="idPickerDOI"/><label for="idPickerDOI">DOI</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="doi" id="idPickerDOI" checked/><label for="idPickerDOI" >DOI</label></div>
           <div class="multi-choice-item"><input type="radio" name="type" value="isbn" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
           <div class="multi-choice-item"><input type="radio" name="type" value="arxiv" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
           <div class="multi-choice-item"><input type="radio" name="type" value="pmid" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>

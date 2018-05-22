@@ -10,7 +10,7 @@ const DOMBuilder = require('./DOMBuilder');
     // return 'http://54.229.175.46:8081/api/v1/citations/?id=10.7554/eLife.09560';
 
     const baseUri = $form.action;
-    const search = $form.search.value;
+    const term = $form.search.value;
     const type = $form.querySelector('input[name="type"]:checked').value;
     const startDate = $form.startDate.value;
     const endDate = $form.endDate.value;
@@ -18,7 +18,10 @@ const DOMBuilder = require('./DOMBuilder');
     const $langPicker = $form.querySelector('#langPicker');
     const language = $langPicker.options[$langPicker.selectedIndex].value;
 
-    return `${baseUri}?search=${search}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}`;
+    const isIdLookup = $form.querySelector('#stringency').checked;
+    const stringency = isIdLookup ? 'id' : 'search';
+
+    return `${baseUri}?${stringency}=${term}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}`;
   }
 
   function getData(query) {

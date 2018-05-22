@@ -38,10 +38,6 @@ header {
   margin: 24px 0;
 }
 
-[type="radio"] {
-  margin-right: 12px;
-}
-
 [type="search"] {
   border-radius: 5px;
   border: 1px solid $color-primary;
@@ -126,6 +122,10 @@ legend {
 
 .multi-choice-item {
   line-height: 1.65;
+
+  input {
+    margin-right: 12px;
+  }
 }
 
 .loading-spinner {
