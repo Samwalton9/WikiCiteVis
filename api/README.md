@@ -8,7 +8,7 @@ To import this into the API's database:
 
 - Download and copy the file into the `api/app` directory
 (this will then put the data file in the container when you build it)
-- Build the containers using the `docker-compose up -- build`
+- Build the containers using the `docker-compose up --build`
 command in the root of the project
 - Whilst in the root directory of the project (that contains the `docker-compose.yml`)
 run the following command:
