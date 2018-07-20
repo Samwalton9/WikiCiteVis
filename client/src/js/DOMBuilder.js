@@ -133,6 +133,7 @@ module.exports = class DOMBuilder {
 
     const $oaStatus = DOMBuilder.buildElement('td');
     const oaUrl = data.oa_url;
+    // 'nan' seems to be junk data so don't try and link to it (still display, to expose in case needs fixing).
     if (oaUrl && oaUrl.toLowerCase() !== 'nan') {
       const $link = DOMBuilder.buildElement('a', [], data.oa_status, $oaStatus);
       $link.href = data.oa_url;
