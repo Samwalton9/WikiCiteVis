@@ -14,6 +14,8 @@ class CitationViewSet(viewsets.ModelViewSet):
         'id',
         'type',
         'language',
+        'article_topic',
+        'oa_status',
     )
     search_fields = (
         'id',
