@@ -189,13 +189,17 @@ module.exports = class DOMBuilder {
   }
 
   static constructLoadingSpinner($parent) {
-    DOMBuilder.buildElement('div', ['loading-spinner'], '', $parent);
+    $parent.classList.add('loading');
+    const $wrapper = DOMBuilder.buildElement('div', ['loading-spinner-wrapper'], '', $parent);
+    DOMBuilder.buildElement('div', ['loading-spinner'], '', $wrapper);
   }
 
   static removeLoadingSpinner() {
-    const $loadingSpinner = document.querySelector('.loading-spinner');
-    if ($loadingSpinner) {
-      $loadingSpinner.parentNode.removeChild(document.querySelector('.loading-spinner'));
+    const $loadingSpinnerWrapper = document.querySelector('.loading-spinner-wrapper');
+    if ($loadingSpinnerWrapper) {
+      const $parent = $loadingSpinnerWrapper.parentNode;
+      $parent.removeChild($loadingSpinnerWrapper);
+      $parent.classList.remove('loading');
     }
   }
 

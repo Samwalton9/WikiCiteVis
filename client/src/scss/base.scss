@@ -144,11 +144,16 @@ legend {
   }
 }
 
-.loading-spinner {
-  @include loading-spinner();
+.loading-spinner-wrapper {
+
+  display: flex;
+  justify-content: center;
+
+  .loading-spinner {
+    @include loading-spinner();
+  }
 }
 
-// Search results
 .search-results {
   padding: 0 24px;
   width: 100%;
@@ -191,6 +196,15 @@ td {
   button {
     flex: 0 0 8rem;
     margin-left: auto;
+
+    .loading & {
+      display: none;
+    }
+
   }
 
+}
+
+.heading {
+  margin-right: auto;
 }
