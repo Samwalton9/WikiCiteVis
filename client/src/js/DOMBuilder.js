@@ -129,6 +129,15 @@ module.exports = class DOMBuilder {
     const $tdTitleLink = DOMBuilder.buildElement('a', ['search-results__item__lang'], data.page_title, $tdTitle);
     $tdTitleLink.href = `https://${data.language}.wikipedia.org/wiki/${processedTitle}`;
 
+    const $topic = DOMBuilder.buildElement('td', [], data.article_topic);
+
+    const $oaStatus = DOMBuilder.buildElement('td');
+    const oaUrl = data.oa_url;
+    if (oaUrl) {
+      const $link = DOMBuilder.buildElement('a', [], data.oa_status, $oaStatus);
+      $link.href = data.oa_url;
+    }
+
     const $tdId = DOMBuilder.buildElement('td', ['search-results__item__id']);
     const sourceUri = deriveSourceUri.call(null, data.page_id, data.type);
     const $sourceLink = DOMBuilder.buildElement('a', [], data.page_id, $tdId);
@@ -137,6 +146,8 @@ module.exports = class DOMBuilder {
 
     $tr.appendChild($tdLang);
     $tr.appendChild($tdTitle);
+    $tr.appendChild($topic);
+    $tr.appendChild($oaStatus);
     $tr.appendChild($tdId);
     $tr.appendChild($timeStamp);
 

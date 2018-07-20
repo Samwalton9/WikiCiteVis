@@ -134,6 +134,14 @@ const DOMBuilder = require('./DOMBuilder');
         properyName: 'page_title'
       },
       {
+        text: 'Topic',
+        properyName: 'article_topic'
+      },
+      {
+        text: 'OA Status',
+        properyName: 'oa_status'
+      },
+      {
         text: 'ID',
         properyName: 'page_id'
       },
