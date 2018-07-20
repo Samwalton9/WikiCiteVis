@@ -11,9 +11,20 @@ class CitationViewSet(viewsets.ModelViewSet):
     serializer_class = CitationSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filter_fields = (
+        'id',
         'type',
         'language',
     )
     search_fields = (
         'id',
     )
+
+    def get_queryset(self):
+        order_by = self.request.query_params.get('orderBy', None)
+
+        if order_by:
+            queryset = self.queryset.order_by(order_by)
+        else:
+            queryset = self.queryset.all()
+
+        return queryset
