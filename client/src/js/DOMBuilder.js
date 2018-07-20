@@ -74,21 +74,24 @@ module.exports = class DOMBuilder {
   static constructHeadColHeading(text, propertyName, $form) {
     const $th = DOMBuilder.buildElement('th', ['search-results__item__heading']);
     const $button = DOMBuilder.buildElement('button', ['ordering-control'], text, $th);
-
     $button.addEventListener('click', () => {
-      // remove any previous orderBy fields
-      const oldFields = $form.querySelectorAll('[name="orderBy"]');
-      if (oldFields) {
-        [].forEach.call(oldFields, (oldField) => {
-          $form.removeChild(oldField);
-        });
+
+      let newOrderByValue = propertyName;
+      // handle a previous orderBy field
+      const oldField = $form.querySelector('[name="orderBy"]');
+      // if the inverse of the same field appears invert it again (handles asc -> desc & visa versa)
+      if (oldField) {
+        if (oldField.value === propertyName) {
+          newOrderByValue = `-${propertyName}`
+        }
+        $form.removeChild(oldField);
       }
 
       // create hidden orderBy field
       const $orderBy = DOMBuilder.buildElement('input', [], '', $form);
       $orderBy.name = 'orderBy';
       $orderBy.type = 'hidden';
-      $orderBy.value = propertyName;
+      $orderBy.value = newOrderByValue;
       $form.appendChild($orderBy);
       // click on form submit button
       $form.querySelector('[type="submit"]').click();
@@ -207,6 +210,19 @@ module.exports = class DOMBuilder {
     }
 
     document.querySelector('.search-results').appendChild($pager);
+  }
+
+  static constructOrderToggle(isDescending) {
+
+    const toggle = () => {
+
+    }
+
+    const text = isDescending ? 'descending' : 'acending';
+    const $toggle = this.buildElement('button', [], text);
+    $toggle
+
+    return toggle;
   }
 
 };

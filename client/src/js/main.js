@@ -13,6 +13,7 @@ const DOMBuilder = require('./DOMBuilder');
     const term = $form.search.value;
     const type = $form.querySelector('input[name="type"]:checked').value;
     const startDate = $form.startDate.value;
+    // TODO: Add now as end date if none specified
     const endDate = $form.endDate.value;
 
     const $langPicker = $form.querySelector('#langPicker');
