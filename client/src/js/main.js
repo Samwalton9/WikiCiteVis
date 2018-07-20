@@ -65,16 +65,13 @@ const DOMBuilder = require('./DOMBuilder');
   function displayData(dataString) {
     const data = JSON.parse(dataString);
 
-    if (!data.count) {
-      return;
-    }
+    DOMBuilder.constructResultsHeading(0 + data.count);
 
-    // First page
-    if (!data.previous) {
-      DOMBuilder.constructResultsHeading(data.count);
-      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri, $searchForm);
-    } else {
+    if (data.previous) {
       DOMBuilder.appendToTableBody(data.results, deriveSourceUri);
+    } else if (data.count) {
+      // First page
+      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri, $searchForm);
     }
 
     DOMBuilder.constructPager(
