@@ -27,6 +27,9 @@ class Citation(models.Model):
     timestamp = models.DateTimeField(null=False)
     type = models.CharField(max_length=25, choices=CITATION_TYPES, default=DOI)
     id = models.CharField(db_index=True, max_length=250)
+    article_topic = models.CharField(max_length=250, blank=True, null=True)
+    oa_status = models.CharField(max_length=250, blank=True, null=True)
+    oa_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.identifier} / {self.type}: {self.id}'
