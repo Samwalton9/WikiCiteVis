@@ -6,15 +6,33 @@ const DOMBuilder = require('./DOMBuilder');
 
   const $searchForm = document.getElementById('searchForm');
 
+  function getDateString(theDate) {
+    // month is 0 indexed
+    let month = theDate.getMonth() + 1;
+    if (month < 10) {
+      month = '0' + month;
+    }
+    let date = theDate.getDate() < 10 ? `0${theDate.getDate()}` : theDate.getDate();
+    return `${theDate.getFullYear()}-${month}-${date}`;
+  }
+
   function composeQuery($form) {
     // return 'http://54.229.175.46:8081/api/v1/citations/?id=10.7554/eLife.09560';
 
     const baseUri = $form.action;
     const term = $form.search.value;
     const type = $form.querySelector('input[name="type"]:checked').value;
-    const startDate = $form.startDate.value;
-    // TODO: Add now as end date if none specified
-    const endDate = $form.endDate.value;
+
+    // Add dates if none specified
+    let startDate = $form.startDate.value;
+    if (!startDate.length) {
+      startDate = getDateString(new Date('01-01-2010'));
+    }
+
+    let endDate = $form.endDate.value;
+    if (!endDate.length) {
+      endDate = getDateString(new Date());
+    }
 
     const $langPicker = $form.querySelector('#langPicker');
     const language = $langPicker.options[$langPicker.selectedIndex].value;
