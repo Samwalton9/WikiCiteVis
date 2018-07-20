@@ -144,7 +144,10 @@ module.exports = class DOMBuilder {
     const sourceUri = deriveSourceUri.call(null, data.id, data.type);
     const $sourceLink = DOMBuilder.buildElement('a', [], data.page_id, $tdId);
     $sourceLink.href = sourceUri;
-    const $timeStamp = DOMBuilder.buildElement('td', ['search-results__item__time'], data.timestamp);
+
+    const $timeStamp = DOMBuilder.buildElement('td', ['search-results__item__time']);
+    const $diffLink = DOMBuilder.buildElement('a', [], data.timestamp, $timeStamp);
+    $diffLink.href = `https://${data.language}.wikipedia.org/wiki/Special:Diff/${data.rev_id}`;
 
     $tr.appendChild($tdLang);
     $tr.appendChild($tdTitle);
