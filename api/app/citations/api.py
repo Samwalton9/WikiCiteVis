@@ -18,3 +18,13 @@ class CitationViewSet(viewsets.ModelViewSet):
     search_fields = (
         'id',
     )
+
+    def get_queryset(self):
+        order_by = self.request.query_params.get('orderBy', None)
+
+        if order_by:
+            queryset = self.queryset.order_by(order_by)
+        else:
+            queryset = self.queryset.all()
+
+        return queryset
