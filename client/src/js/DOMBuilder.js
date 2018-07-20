@@ -129,7 +129,7 @@ module.exports = class DOMBuilder {
     const $tdTitleLink = DOMBuilder.buildElement('a', ['search-results__item__lang'], data.page_title, $tdTitle);
     $tdTitleLink.href = `https://${data.language}.wikipedia.org/wiki/${processedTitle}`;
 
-    const $topic = DOMBuilder.buildElement('td', [], data.article_topic);
+    const $topic = DOMBuilder.buildElement('td', [], data.article_topic.replace(/_/g, ' '));
 
     const $oaStatus = DOMBuilder.buildElement('td');
     const oaUrl = data.oa_url;
