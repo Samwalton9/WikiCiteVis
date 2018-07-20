@@ -58,8 +58,16 @@ button {
   line-height: 2;
   width: 48%;
 
-  &:hover {
+  &:not(.ordering-control):hover {
     background-color: $color-primary-dark;
+  }
+
+  &.ordering-control {
+    background-color: $color-text--reverse;
+    border-width: 0;
+    color: $color-primary;
+    padding: 0;
+    width: auto;
   }
 
 }

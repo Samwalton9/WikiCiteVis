@@ -21,7 +21,10 @@ const DOMBuilder = require('./DOMBuilder');
     const isIdLookup = $form.querySelector('#stringency').checked;
     const stringency = isIdLookup ? 'id' : 'search';
 
-    return `${baseUri}?${stringency}=${term}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}`;
+    const $orderBy = $form.querySelector('[name="orderBy"]');
+    const orderBy = $orderBy ? $orderBy.value : '';
+
+    return `${baseUri}?${stringency}=${term}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}&orderBy=${orderBy}`;
   }
 
   function getData(query) {
@@ -50,7 +53,7 @@ const DOMBuilder = require('./DOMBuilder');
     // First page
     if (!data.previous) {
       DOMBuilder.constructResultsHeading(data.count);
-      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri);
+      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri, $searchForm);
     } else {
       DOMBuilder.appendToTableBody(data.results, deriveSourceUri);
     }
@@ -67,8 +70,10 @@ const DOMBuilder = require('./DOMBuilder');
   }
 
   function handleSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const $searchResultsContainer = document.querySelector('.search-results');
     DOMBuilder.clear($searchResultsContainer);
     DOMBuilder.constructLoadingSpinner($searchResultsContainer);
@@ -103,19 +108,19 @@ const DOMBuilder = require('./DOMBuilder');
     headRowCols: [
       {
         text: 'Language',
-        href: 'sortByLang_ToggleDirection'
+        properyName: 'language'
       },
       {
         text: 'Title',
-        href: 'sortByTitle_ToggleDirection'
+        properyName: 'page_title'
       },
       {
         text: 'ID',
-        href: 'sortById_ToggleDirection'
+        properyName: 'page_id'
       },
       {
         text: 'Time stamp',
-        href: 'sortByTimeStamp_ToggleDirection'
+        properyName: 'timestamp'
       }
     ]
   };

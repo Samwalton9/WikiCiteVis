@@ -71,27 +71,48 @@ module.exports = class DOMBuilder {
     return $el;
   }
 
-  static constructHeadColHeading(text, href) {
+  static constructHeadColHeading(text, propertyName, $form) {
     const $th = DOMBuilder.buildElement('th', ['search-results__item__heading']);
-    const $a = DOMBuilder.buildElement('a', [], text, $th);
-    $a.href = href;
+    const $button = DOMBuilder.buildElement('button', ['ordering-control'], text, $th);
+
+    $button.addEventListener('click', () => {
+      // remove any previous orderBy fields
+      const oldFields = $form.querySelectorAll('[name="orderBy"]');
+      if (oldFields) {
+        [].forEach.call(oldFields, (oldField) => {
+          $form.removeChild(oldField);
+        });
+      }
+
+      // create hidden orderBy field
+      const $orderBy = DOMBuilder.buildElement('input', [], '', $form);
+      $orderBy.name = 'orderBy';
+      $orderBy.type = 'hidden';
+      $orderBy.value = propertyName;
+      $form.appendChild($orderBy);
+      // click on form submit button
+      $form.querySelector('[type="submit"]').click();
+    });
+
+
+
     return $th;
   }
 
-  static constructTableHead(headRowCols) {
+  static constructTableHead(headRowCols, $form) {
     const $thead = DOMBuilder.buildElement('thead');
     const $headRow = DOMBuilder.buildElement('tr', ['search-results__row'], '', $thead);
 
     headRowCols.forEach((colData) => {
-      $headRow.appendChild(DOMBuilder.constructHeadColHeading(colData.text, colData.href));
+      $headRow.appendChild(DOMBuilder.constructHeadColHeading(colData.text, colData.properyName, $form));
     });
 
     return $thead;
   }
 
-  static constructTableSkeleton(headRowCols) {
+  static constructTableSkeleton(headRowCols, $form) {
     const $table = DOMBuilder.buildElement('table');
-    const $thead = DOMBuilder.constructTableHead(headRowCols);
+    const $thead = DOMBuilder.constructTableHead(headRowCols, $form);
     $table.appendChild($thead);
     return $table;
   }
@@ -119,8 +140,8 @@ module.exports = class DOMBuilder {
     return $tr;
   }
 
-  static constructResultsTable(list, headRowCols, deriveSourceUri) {
-    const $table = DOMBuilder.constructTableSkeleton(headRowCols);
+  static constructResultsTable(list, headRowCols, deriveSourceUri, $form) {
+    const $table = DOMBuilder.constructTableSkeleton(headRowCols, $form);
     let $tbody = DOMBuilder.buildElement('tbody');
     DOMBuilder.appendToTableBody(list, deriveSourceUri, $tbody);
     $table.appendChild($tbody);
