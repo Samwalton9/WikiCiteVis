@@ -35,7 +35,7 @@ const DOMBuilder = require('./DOMBuilder');
     }
 
     const $langPicker = $form.querySelector('#langPicker');
-    const language = $langPicker.options[$langPicker.selectedIndex].value;
+    const language = $langPicker.options[$langPicker.selectedIndex].value.toLowerCase();
 
     const isIdLookup = $form.querySelector('#stringency').checked;
     const stringency = isIdLookup ? 'id' : 'search';
