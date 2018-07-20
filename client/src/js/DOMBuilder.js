@@ -133,9 +133,11 @@ module.exports = class DOMBuilder {
 
     const $oaStatus = DOMBuilder.buildElement('td');
     const oaUrl = data.oa_url;
-    if (oaUrl) {
+    if (oaUrl && oaUrl.toLowerCase() !== 'nan') {
       const $link = DOMBuilder.buildElement('a', [], data.oa_status, $oaStatus);
       $link.href = data.oa_url;
+    } else {
+      $oaStatus.innerHTML = data.oa_status;
     }
 
     const $tdId = DOMBuilder.buildElement('td', ['search-results__item__id']);
