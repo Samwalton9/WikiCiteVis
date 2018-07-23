@@ -187,6 +187,7 @@ th {
 
 td {
   line-height: 2;
+  text-align: center; /* temp measure to fix alignment with the th elements */
 }
 
 .pager {
