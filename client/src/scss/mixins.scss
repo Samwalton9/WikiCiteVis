@@ -1,0 +1,34 @@
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin loading-spinner($torus-width: 5, $size: 22, $highlight-color: rgba(255, 255, 255, 0.2), $base-color: $color-primary) {
+  animation: full-rotation 1.1s infinite linear;
+  border: #{$torus-width}px solid $base-color;
+  border-left: #{$torus-width}px solid $highlight-color;
+  border-radius: 50%;
+  display: block;
+  height: #{$size}px;
+  overflow: hidden;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  width: #{$size}px;
+
+  @keyframes full-rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+}

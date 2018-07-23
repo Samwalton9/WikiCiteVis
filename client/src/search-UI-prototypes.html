@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>WikiCiteVis: Search UI prototype</title>
   <link rel="stylesheet" href="css/all.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="format-detection" content="telephone=no">
 </head>
 <body>
 
@@ -22,11 +24,13 @@
         <input class="text-input" type="search" name="search" placeholder="10.nnnn.nn formatted search">
         <button class="button" type="submit">Search</button>
 
+        <div class="multi-choice-item"><input type="checkbox" name="stringency" value="exact match" id="stringency" checked/><label for="stringency">Exact match</label></div>
+
 
         <fieldset class="id-type-wrapper">
           <legend>Which type of identifier are you searching with? </legend>
 
-          <div class="multi-choice-item"><input type="radio" name="type" value="doi" id="idPickerDOI"/><label for="idPickerDOI">DOI</label></div>
+          <div class="multi-choice-item"><input type="radio" name="type" value="doi" id="idPickerDOI" checked/><label for="idPickerDOI" >DOI</label></div>
           <div class="multi-choice-item"><input type="radio" name="type" value="isbn" id="idPickerISBN" /><label for="idPickerISBN">ISBN</label></div>
           <div class="multi-choice-item"><input type="radio" name="type" value="arxiv" id="idPickerARXIV" /><label for="idPickerARXIV">ARXIV</label></div>
           <div class="multi-choice-item"><input type="radio" name="type" value="pmid" id="idPickerPMID" /><label for="idPickerPMID">PubMed ID</label></div>
@@ -174,6 +178,11 @@
         </tbody>
 
       </table>
+
+      <div class="pager">
+        <button id="previousPage" class="previous">Previous</button>
+        <button id="nextPage" class="next">Next</button>
+      </div>
 
     </section>
 

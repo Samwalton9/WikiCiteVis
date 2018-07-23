@@ -6,17 +6,44 @@ const DOMBuilder = require('./DOMBuilder');
 
   const $searchForm = document.getElementById('searchForm');
 
+  function getDateString(theDate) {
+    // month is 0 indexed
+    let month = theDate.getMonth() + 1;
+    if (month < 10) {
+      month = '0' + month;
+    }
+    let date = theDate.getDate() < 10 ? `0${theDate.getDate()}` : theDate.getDate();
+    return `${theDate.getFullYear()}-${month}-${date}`;
+  }
+
   function composeQuery($form) {
+    // return 'http://54.229.175.46:8081/api/v1/citations/?id=10.7554/eLife.09560';
+
     const baseUri = $form.action;
-    const search = $form.search.value;
+    const term = $form.search.value;
     const type = $form.querySelector('input[name="type"]:checked').value;
-    const startDate = $form.startDate.value;
-    const endDate = $form.endDate.value;
+
+    // Add dates if none specified
+    let startDate = $form.startDate.value;
+    if (!startDate.length) {
+      startDate = getDateString(new Date('01-01-2010'));
+    }
+
+    let endDate = $form.endDate.value;
+    if (!endDate.length) {
+      endDate = getDateString(new Date());
+    }
 
     const $langPicker = $form.querySelector('#langPicker');
-    const language = $langPicker.options[$langPicker.selectedIndex].value;
+    const language = $langPicker.options[$langPicker.selectedIndex].value.toLowerCase();
 
-    return `${baseUri}?search=${search}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}`;
+    const isIdLookup = $form.querySelector('#stringency').checked;
+    const stringency = isIdLookup ? 'id' : 'search';
+
+    const $orderBy = $form.querySelector('[name="orderBy"]');
+    const orderBy = $orderBy ? $orderBy.value : '';
+
+    return `${baseUri}?${stringency}=${term}&type=${type}&language=${language}&startDate=${startDate}&endDate=${endDate}&orderBy=${orderBy}`;
   }
 
   function getData(query) {
@@ -35,16 +62,39 @@ const DOMBuilder = require('./DOMBuilder');
     );
   }
 
-  function displayData(data) {
-    console.log('Placeholder fn until search returning results');
-    console.log('data', data);
+  function displayData(dataString) {
+    const data = JSON.parse(dataString);
+
+    DOMBuilder.constructResultsHeading(0 + data.count);
+
+    if (data.previous) {
+      DOMBuilder.appendToTableBody(data.results, deriveSourceUri);
+    } else if (data.count) {
+      // First page
+      DOMBuilder.constructResultsTable(data.results, config.headRowCols, deriveSourceUri, $searchForm);
+    }
+
+    DOMBuilder.constructPager(
+      {
+        previous: data.previous,
+        next: data.next
+      },
+      getData,
+      displayData,
+      document.querySelector('.search-results')
+      );
   }
 
   function handleSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const $searchResultsContainer = document.querySelector('.search-results');
+    DOMBuilder.clear($searchResultsContainer);
+    DOMBuilder.constructLoadingSpinner($searchResultsContainer);
     getData(composeQuery(e.target))
-      .then(displayData);
+      .then(displayData).then(DOMBuilder.removeLoadingSpinner);
     console.log('query:' ,composeQuery(e.target));
   }
 
@@ -74,85 +124,31 @@ const DOMBuilder = require('./DOMBuilder');
     headRowCols: [
       {
         text: 'Language',
-        href: 'sortByLang_ToggleDirection'
+        properyName: 'language'
       },
       {
         text: 'Title',
-        href: 'sortByTitle_ToggleDirection'
+        properyName: 'page_title'
+      },
+      {
+        text: 'Topic',
+        properyName: 'article_topic'
+      },
+      {
+        text: 'OA Status',
+        properyName: 'oa_status'
       },
       {
         text: 'ID',
-        href: 'sortById_ToggleDirection'
+        properyName: 'page_id'
       },
       {
         text: 'Time stamp',
-        href: 'sortByTimeStamp_ToggleDirection'
-      }
-    ]
-  };
-
-  const mockData =   {
-    "count": 5,
-    "next": null,
-    "previous": null,
-    "results": [
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
-      },
-      {
-        "identifier": "780a692c-c37e-45a8-9d86-214787274316",
-        "language": "sw",
-        "page_id": 15871,
-        "page_title": "Malaria",
-        "rev_id": 318169,
-        "timestamp": "2009-11-19T12:35:47Z",
-        "type": "doi",
-        "id": "10.1038/nsmb947"
+        properyName: 'timestamp'
       }
     ]
   };
 
   $searchForm.addEventListener('submit', handleSubmit);
-
-  // TODO: Move next 2 lines to the displayData function (the promise resolution callback)
-  DOMBuilder.constructResultsHeading(mockData.count);
-  DOMBuilder.constructResultsTable(mockData.results, config.headRowCols, deriveSourceUri);
 
 }(window));
