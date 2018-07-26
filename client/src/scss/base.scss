@@ -10,8 +10,16 @@ body {
 
   @media only all and (min-width: #{$breakpoint_2}px) {
     margin: 0 auto;
+  }
+}
+
+.page-header,
+.search-entry {
+  @media only all and (min-width: #{$breakpoint_2}px) {
+    margin: 0 auto;
     max-width: 800px;
   }
+
 }
 
 a {
@@ -25,6 +33,10 @@ a {
   }
 }
 
+.pickers {
+  @include clearfix();
+}
+
 fieldset {
   border-radius: 5px;
 }
@@ -32,10 +44,6 @@ fieldset {
 fieldset,
 header {
   margin: 24px 0;
-}
-
-[type="radio"] {
-  margin-right: 12px;
 }
 
 [type="search"] {
@@ -58,8 +66,16 @@ button {
   line-height: 2;
   width: 48%;
 
-  &:hover {
+  &:not(.ordering-control):hover {
     background-color: $color-primary-dark;
+  }
+
+  &.ordering-control {
+    background-color: $color-text--reverse;
+    border-width: 0;
+    color: $color-primary;
+    padding: 0;
+    width: auto;
   }
 
 }
@@ -122,21 +138,46 @@ legend {
 
 .multi-choice-item {
   line-height: 1.65;
+
+  input {
+    margin-right: 12px;
+  }
 }
 
-// Search results
+.loading-spinner-wrapper {
+
+  display: flex;
+  justify-content: center;
+
+  .loading-spinner {
+    @include loading-spinner();
+  }
+}
+
 .search-results {
+  padding: 0 24px;
   width: 100%;
 }
 
 .search-results__row {
+  animation: fade-in 1s ease-in-out;
   display: grid;
   grid-column-gap: 8px;
-  grid-template-columns: 1fr 5fr 2fr 3fr;
+  grid-template-columns: 1fr 5fr 3fr 2fr 2fr 3fr;
   width: 100%;
 
   tbody &:nth-child(even) {
     background-color: $color-text-ui-code;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
@@ -146,4 +187,25 @@ th {
 
 td {
   line-height: 2;
+  text-align: center; /* temp measure to fix alignment with the th elements */
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    flex: 0 0 8rem;
+    margin-left: auto;
+
+    .loading & {
+      display: none;
+    }
+
+  }
+
+}
+
+.heading {
+  margin-right: auto;
 }

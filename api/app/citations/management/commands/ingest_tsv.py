@@ -26,15 +26,19 @@ def import_tsv(data_file_path: str) -> None:
             ct = reader.iloc[idx]
 
             try:
-                print(f'{ct.id} / {ct.type} / {ct.page_title}')
-
                 Citation.objects.create(page_id=ct.page_id,
                                         timestamp=ct.timestamp,
                                         page_title=ct.page_title,
                                         rev_id=ct.rev_id,
                                         type=ct.type,
                                         id=ct.id,
-                                        language=ct.language)
+                                        language=ct.language,
+                                        article_topic=ct.article_topic,
+                                        oa_status=ct.oa_status,
+                                        oa_url=ct.oa_url)
+
+                print(f'{ct.id} / {ct.type} / {ct.page_title}')
+
             except ValueError:
                 # blank line? missing data ?
                 pass
