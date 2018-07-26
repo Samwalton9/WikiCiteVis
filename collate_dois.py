@@ -10,7 +10,7 @@ except ImportError:
 #One big tsv, same as previous layout but with an added language column.
 #Forcing UTF-8 everywhere we can in a vague attempt to fix encoding issues.
 
-all_files = glob.glob(os.path.join("IdentifiersData", "*wiki.tsv"))
+all_files = os.listdir("IdentifiersData")
 output_file = os.path.join('identifiers_collated.tsv')
 
 with open(output_file, 'a', encoding='utf-8') as csvfile:
@@ -21,11 +21,10 @@ with open(output_file, 'a', encoding='utf-8') as csvfile:
     if bars:
         bar = Bar('Progress', max=len(all_files), suffix='%(percent)d%%')
     for file in all_files:
-        wiki_name = file.split("/")[1][:-8]
+        wiki_name = file[:-4]
 
-        with open(file, 'r', encoding='utf-8') as wiki_file:
+        with open(os.path.join("IdentifiersData", file), 'r', encoding='utf-8') as wiki_file:
             wiki_data = csv.reader(wiki_file, delimiter='\t')
-            next(wiki_data)
 
             for row in wiki_data:
                 row.insert(0,wiki_name)
