@@ -138,7 +138,7 @@ module.exports = class DOMBuilder {
       const $link = DOMBuilder.buildElement('a', [], data.oa_status, $oaStatus);
       $link.href = data.oa_url;
     } else {
-      $oaStatus.innerHTML = data.oa_status;
+      $oaStatus.innerHTML = '-';  // data.oa_status;
     }
 
     const $tdId = DOMBuilder.buildElement('td', ['search-results__item__id']);
