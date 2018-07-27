@@ -140,7 +140,7 @@ const DOMBuilder = require('./DOMBuilder');
       },
       {
         text: 'ID',
-        properyName: 'page_id'
+        properyName: 'id'
       },
       {
         text: 'Time stamp',

@@ -143,7 +143,7 @@ module.exports = class DOMBuilder {
 
     const $tdId = DOMBuilder.buildElement('td', ['search-results__item__id']);
     const sourceUri = deriveSourceUri.call(null, data.id, data.type);
-    const $sourceLink = DOMBuilder.buildElement('a', [], data.page_id, $tdId);
+    const $sourceLink = DOMBuilder.buildElement('a', [], data.id, $tdId);
     $sourceLink.href = sourceUri;
 
     const $timeStamp = DOMBuilder.buildElement('td', ['search-results__item__time']);
